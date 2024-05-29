@@ -162,8 +162,6 @@ const ReactPasswordChecklist: React.FC<ReactPasswordChecklistProps> = ({
 		<ul
 			className={className}
 			style={{
-				margin: 0,
-				padding: 0,
 				...style,
 			}}
 		>
