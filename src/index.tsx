@@ -30,6 +30,9 @@ export type RuleNames =
 	| "lowercase"
 	| "letter"
 	| "notEmpty"
+	| "noLeadingSpace"
+	| "noTrailingSpace"
+	| "noLeadingOrTrailingSpace"
 
 export interface ReactPasswordChecklistProps extends PasswordProps {
 	className?: string
@@ -122,6 +125,18 @@ const ReactPasswordChecklist: React.FC<ReactPasswordChecklistProps> = ({
 			valid: Boolean(value.length > 0 && valueAgain && valueAgain.length > 0),
 			message: messages.notEmpty || "Password fields are not empty.",
 		},
+		noLeadingSpace: {
+			valid: !/^\s/.test(value),
+			message: messages.noLeadingSpace || 'Password must not contain a leading space'
+		},
+		noTrailingSpace: {
+			valid: !/\s$/.test(value),
+			message: messages.noTrailingSpace || 'Password must not contain a trailing space'
+		},
+		noLeadingOrTrailingSpace: {
+			valid: !/^\s|\s$/.test(value),
+			message: messages.noLeadingOrTrailingSpace || 'Password must not contain a leading or trailing space'
+		}
 	}
 	const enabledRules: RuleNames[] = useMemo(
 		() => rules.filter((rule) => Boolean(ruleDefinitions[rule])),
